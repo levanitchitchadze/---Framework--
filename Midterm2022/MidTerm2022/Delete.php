@@ -31,7 +31,7 @@ class DeleteRecord{
         
         $stmt->bindParam(':ID', $ID);
         $stmt->execute();
-        header("Location: http://localhost/Midterm2022/SelectPage.php"); 
+        header("Location: http://localhost/midterm2022/MidTerm2022/SelectPage.php"); 
 
 
     }

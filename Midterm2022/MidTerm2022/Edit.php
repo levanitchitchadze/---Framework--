@@ -109,7 +109,7 @@
     </style>
 </head>
 <body>
-<div class="Home"><a href="SelectPage.php">Home</a></div>    
+<div class="Home"><a href="MainPage.php">Home</a></div>    
 
 <header>
 PHP Write in database</header>
@@ -122,18 +122,17 @@ PHP Write in database</header>
 <div class="container">
 <form method="POST"  >
 <p>First Name</p>
-    <input type="text" name="FirstName" value="Hello">
+    <input type="text" name="FirstName" >
 <p>Last Name</p>
-    <input type="text" name="LastName"  value="Hello">
-<p>Password</p>
-    <input type="password" name="Password"  value="Hello">
+    <input type="text" name="LastName" >
+<p>BirthDate</p>
+    <input type="date" name="BirthDate" >
 <p>Pin</p>
-    <input type="text" name="Pin"  value="Hello">
-<p>Email</p>
-    <input type="text" name="Email"  value="Hello">
-<p>Phone</p>
-    <input type="text" name="Phone"  value="Hello">
-
+    <input type="text" name="Pin" >
+<p>Position</p>
+    <input type="text" name="Position" >
+<p>RegistrationDate</p>
+    <input type="Date" name="RegistrationDate" >
 
 
 
@@ -183,24 +182,26 @@ class UpdateData{
     public function update($conn,$ID){
         $FN =$_POST['FirstName'];
         $LN =$_POST['LastName'];
-        $PASS =$_POST['Password'];
+        $BD =$_POST['BirthDate'];
         $PIN =strval($_POST['Pin']);
-        $EM =$_POST['Email'];
-        $PH =strval($_POST['Phone']);
+        $POS =$_POST['Position'];
+        $RD =strval($_POST['RegistrationDate']);
+        $NUM =strval($_POST['Number']);
 
 
 
-        $stmt = $conn->prepare("UPDATE `users` SET `FirstName` = :FirstName,
-         `LastName` = :LastName, `Password` = :Pass,`Pin`=:Pin, `Email` = :Email,
-          `Phone` = :Phone WHERE `users`.`ID` = :ID");
+        $stmt = $conn->prepare("UPDATE `users` SET `FN` = :FN,
+         `LN` = :LN, `BD` = :BD,`PIN`=:Pin,`POS`=:POS, `RD` = :RD,
+          `Number` = :Num WHERE `users`.`ID` = :ID");
         
         
-        $stmt->bindParam(':FirstName', $FN);
-        $stmt->bindParam(':LastName', $LN);
-        $stmt->bindParam(':Pass', $PASS);
+        $stmt->bindParam(':FN', $FN);
+        $stmt->bindParam(':LN', $LN);
+        $stmt->bindParam(':BD', $BD);
         $stmt->bindParam(':Pin', $PIN);
-        $stmt->bindParam(':Email', $EM);
-        $stmt->bindParam(':Phone', $PH);
+        $stmt->bindParam(':POS', $POS);
+        $stmt->bindParam(':RD', $RD);
+        $stmt->bindParam(':Num', $NUM);
         $stmt->bindParam(':ID', $ID);
 
 

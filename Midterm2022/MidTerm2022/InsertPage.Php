@@ -93,7 +93,7 @@
             background-repeat: no-repeat;
             border-radius: 10px;
             box-shadow:5px 7px #888888 ;
-            
+            background-color: #000001;
         }
         .Home{
             margin-left:5px;
@@ -105,7 +105,7 @@
     </style>
 </head>
 <body>
-<div class="Home"><a href="SelectPage.php">Home</a></div>    
+<div class="Home"><a href="MainPage.php">Home</a></div>    
 
 <header>
 PHP Write in database</header>
@@ -114,17 +114,19 @@ PHP Write in database</header>
 <div class="container">
 <form method="GET" action="InsertPage.Php">
 <p>First Name</p>
-    <input type="text" name="FirstName" value="levan">
+    <input type="text" name="FirstName" >
 <p>Last Name</p>
-    <input type="text" name="LastName" value="Tchitchadze">
-<p>Password</p>
-    <input type="password" name="Password" value="Password">
+    <input type="text" name="LastName" >
+<p>BirthDate</p>
+    <input type="date" name="BirthDate" >
 <p>Pin</p>
-    <input type="text" name="Pin" value="01001111001">
-<p>Email</p>
-    <input type="text" name="Email" value="Levan.tchitchadze@gau.edu.ge">
-<p>Phone</p>
-    <input type="text" name="Phone" value="551342133">
+    <input type="text" name="Pin" >
+<p>Position</p>
+    <input type="text" name="Position" >
+<p>RegistrationDate</p>
+    <input type="date" name="RegistrationDate" >
+
+
 
 
 
@@ -138,21 +140,17 @@ PHP Write in database</header>
 <br>
 <?php
 
-
-
-
-
-
 class InsertData{
     
     public function Connection(){
 
         $FN =$_GET['FirstName'];
         $LN =$_GET['LastName'];
-        $PASS =$_GET['Password'];
+        $BD =$_GET['BirthDate'];
         $PIN =strval($_GET['Pin']);
-        $EM =$_GET['Email'];
-        $PH =strval($_GET['Phone']);
+        $POS =$_GET['Position'];
+        $RD =strval($_GET['RegistrationDate']);
+        $NUM =rand();
 
 
         $servername = "localhost";
@@ -170,16 +168,17 @@ class InsertData{
         }
 
 
-        $stmt = $conn->prepare("INSERT INTO `users` ( `FirstName`, `LastName`, `Password`, `Pin`, `Email`, `Phone`) 
-        VALUES (:FirstName, :LastName, :Pass, :Pin, :Email, :Phone)");
+        $stmt = $conn->prepare("INSERT INTO `users` ( `FN`, `LN`, `BD`, `PIN`, `POS`, `RD`,`Number`) 
+        VALUES (:FN, :LN, :BD, :Pin, :POS, :RD,:Num)");
         
         
-        $stmt->bindParam(':FirstName', $FN);
-        $stmt->bindParam(':LastName', $LN);
-        $stmt->bindParam(':Pass', $PASS);
+        $stmt->bindParam(':FN', $FN);
+        $stmt->bindParam(':LN', $LN);
+        $stmt->bindParam(':BD', $BD);
         $stmt->bindParam(':Pin', $PIN);
-        $stmt->bindParam(':Email', $EM);
-        $stmt->bindParam(':Phone', $PH);
+        $stmt->bindParam(':POS', $POS);
+        $stmt->bindParam(':RD', $RD);
+        $stmt->bindParam(':Num', $NUM);
 
 
         try{

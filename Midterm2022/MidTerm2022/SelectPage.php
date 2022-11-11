@@ -151,20 +151,21 @@ PHP Write in database</header>
 
 <table>
 <tr>
-<th>ID</th>
-<th>First Name</th>
-<th>Last Name</th>
-<th>Password</th>
-<th>Pin</th>
-<th>Email</th>
-<th>Phone</th>
+<th><a href="SelectPage.php?Order=<?php echo 'ID' ?>">ID</a></th>
+<th><a href="SelectPage.php?Order=<?php echo 'FN' ?>">First Name</a></th>
+<th><a href="SelectPage.php?Order=<?php echo 'LN' ?>">Last Name</a></th>
+<th><a href="SelectPage.php?Order=<?php echo 'BD' ?>">birth date</a></th>
+<th><a href="SelectPage.php?Order=<?php echo 'PIN' ?>">Pin</a></th>
+<th><a href="SelectPage.php?Order=<?php echo 'POS' ?>">Position</a></th>
+<th><a href="SelectPage.php?Order=<?php echo 'RD' ?>">Registration date</a></th>
+<th><a href="SelectPage.php?Order=<?php echo 'Number' ?>">Number</a></th>
 <th>Edit</th>
 <th>Delete</th>
 </tr>
 
+</form>
 
 <?php
-
 
 
 
@@ -174,8 +175,7 @@ class InsertData{
     
     public function Connection(){
 
- 
-
+        
 
         $servername = "localhost";
         $username = "root";
@@ -191,29 +191,47 @@ class InsertData{
         }
 
 
+
+
+        if (isset($_GET['Order'])){
+            $OrderBy=$_GET['Order'];
+            echo $OrderBy;
+
+        
+        
+        $stmt = $conn->prepare("select * from `users` order by :OrderBy desc");
+        $stmt->bindParam(':OrderBy', $OrderBy);
+
+
+
+
+        
+        }else{
+
         $stmt = $conn->prepare("select * from `users` ");
-        
-        
+
+        }
+
 
 
         try{
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            //view the entire array (for testing)
-            // print_r($result);
+            
 
-            //display array elements
+            
             foreach($result as $output) {
                 echo 
             "<tr>
                 <td style='background:lightblue;'>".$output['ID']. "</td>
-                <td>".$output['FirstName']. "</td>
-                <td style='background:lightblue;'>".$output['LastName']. "</td>
-                <td>".$output['Password']. "</td>
-                <td style='background:lightblue;'>".$output['Pin']. "</td>
-                <td>".$output['Email']. "</td>
-                <td style='background:lightblue;'>".$output['Phone']. "</td>
+                <td>".$output['FN']. "</td>
+                <td style='background:lightblue;'>".$output['LN']. "</td>
+                <td>".$output['BD']. "</td>
+                <td style='background:lightblue;'>".$output['PIN']. "</td>
+                <td>".$output['POS']. "</td>
+                <td style='background:lightblue;'>".$output['RD']. "</td>
+                <td >".$output['Number']. "</td>
                 <td style='background:tomato;' ><button class='Edit'><a href=Edit.php?id=".$output['ID'].">Edit</a></button></td>
                 <td style='background:black;' ><button class='Delete'><a href=Delete.php?id=".$output['ID']. ">Delete</a></button></td>
             </tr>";
@@ -226,6 +244,7 @@ class InsertData{
             echo "<br> <br> Can't Insert Data". $e->getMessage();
 
         }
+
         
     }
 
