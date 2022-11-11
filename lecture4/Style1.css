@@ -1,0 +1,32 @@
+.menu {
+    border: solid 1xp black;
+    margin: auto;
+    width: 70%;
+    background-color: rgb(176, 121, 228);
+}
+
+.menu ul {
+    list-style: none;
+
+}
+
+.menu ul li {
+    display: inline-block;
+    margin: 10px;
+    margin-left: 10%;
+    font-size: 2em;
+}
+
+.menu a {
+    text-decoration: none;
+}
+
+.content {
+    border: solid 1xp black;
+    margin: auto;
+    width: 70%;
+    height: 500px;
+    background-color: rgb(205, 178, 230);
+    font-size: 20px;
+
+} 
